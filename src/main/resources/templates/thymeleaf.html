@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>thymeleaf 전체 구문 기본 언어 (SpringEL)</title>
+<!-- SpringEL -->
+</head>
+<body>
+<!-- th:text : innerTEXT,      th:utext :  innerHTML -->
+
+<div th:text="${code}"></div><br>
+<div th:utext="${code}"></div>
+
+<!-- 태그 안에 직접 변수값을 출력 (TEXT) -->
+<span>[[${code}]]</span>
+
+<!-- 태그 안에 직접 변수값을 출력 (HTML) -->
+<span>[(${code})]</span>
+
+
+<p>사용자 정보</p>
+<ul>
+<!-- 	<li>[[${all.mid}]]</li> -->
+	<li>[[${all["mid"]}]]</li>
+	
+	<li>[[${all.mage}]]</li>
+</ul>
+
+<!-- th:value  :  input에 value에 데이터를 출력해야 할 경우 사용함 -->
+<p>검색어 : <input type="text" name="search" value="[[${search}]]"></p>
+<p>검색어 : <input type="text" name="search" th:value="${search}"></p>
+
+<!-- th:href  :  |링크주소 및 변수값|  =>  정상적인 href로 인식하여 GET으로 이동 -->
+<a th:href="|./page.do?url=${page}|">링크</a>
+<br><br>
+<!-- ${session.키값}  :  Controller에서 등록된 Session값을 가져올 때 사용함 -->
+<div th:text="${session.muser}"></div>
+<div>[[${session.muser}]]</div>
+
+<!-- Thymeleaf 변수 선언 -->
+<!-- th:with  :  가상의 변수를 선언하는 사용 방법  =>  th:with="가상변수명=값" -->
+<span th:with="product='냉장고'">
+<p>[[${product}]]</p>	<!-- th:with를 선언 시 해당 마크업 기준에서만 출력 가능 -->
+</span>
+
+<!-- th:if  :  Thymeleaf 조건문  =>  오브젝트 관련사항을 핸들링할 수 있음 -->
+<span th:if="${result == 'ok'}">동의함</span>
+<!-- th:unless="${result == 'no'}  =>  no가 아닐 경우 작동됨" -->
+<span th:unless="${result == 'ok'}">동의 안함</span>
+
+
+
+
+
+</body>
+</html>

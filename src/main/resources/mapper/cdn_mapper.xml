@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="kr.co.lee.cdn_mapper">
+<insert id="cdn_insert" parameterType="kr.co.ckrjjang.file_DTO">
+INSERT INTO API_ING (ORI_FILE, NEW_FILE, FILE_URL, FILE_BIN, FILE_DATE) 
+VALUES (#{ORI_FILE}, #{NEW_FILE}, #{FILE_URL}, #{FILE_DATE}, #{FILE_BIN}, SYSDATE)
+</insert>
+
+<select id="cdn_select" resultType="kr.co.ckrjjang.file_DTO" parameterType="String">
+select * from API_ING 
+<if test="part == 1">
+where AIDX = #{AIDX}
+</if>
+<if test="part == 2">
+ order by AIDX desc
+</if>
+<!-- 사용자가 업로드한 파일명으로 검색 -->
+<if test="part == 3">
+ where ORI_FILE like '%'||#{word}||'%' order by AIDX desc
+</if>
+</select>
+
+<select id="cdn_images" resultType="kr.co.ckrjjang.file_DTO" parameterType="String">
+select FILE_URL from API_IMG where API_FILE=#{APINO}
+</select>
+
+<delete id="cdn_delete" parameterType="String">
+delete from API_IMG where AIDX
+</delete>
+
+<!-- AOP 로그 테이블 -->
+<insert id="log_table" parameterType="String">
+insert into log_table (MID, MTODAY) values (#{mid}, SYSDATE)
+</insert>
+</mapper>

@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<meta http-equiv="X-UA-compatible" content="IE=Edge,chrome=1">
+<meta name="viewport" content="width=device, initial-scale=1.0"> 
+<title th:fragment="title">쿠팡 쇼핑몰 리뉴얼</title>
+<div th:fragment="cssfile">
+<link href="https://fonts.googleapis.com/css2?family=Nanum+Pen+Script&display=swap" rel="stylesheet">
+<!--Regular 400-->
+<link href="https://fonts.googleapis.com/css2?family=Nanum+Gothic:wght@400;700&family=Noto+Sans+KR:wght@100;300;400;900&display=swap" rel="stylesheet">
+<link rel="stylesheet" type="text/css" href="./index.css?v=7">
+<link rel="stylesheet" type="text/css" href="./top.css?v=6">
+<link rel="stylesheet" type="text/css" href="./menu.css?v=6">
+<link rel="stylesheet" type="text/css" href="./banner.css?v=3">
+<link rel="stylesheet" type="text/css" href="./product.css?v=4">
+<link rel="stylesheet" type="text/css" href="./bottom.css?v=2">
+</div>
+<script src="../js/jquery.js"></script>
+</head>
+<body>
+<!--이벤트 배너-->
+<header class="header_css">
+    <script>
+        $(document).ready(function(){
+            $("#close").click(function(){
+                $("#top1").slideUp(1000);
+            });
+
+            $("#f").submit(function(){
+                    var $search = $("#search").val();
+           
+           if($search==""){
+            alert("검색할 상품명을 입력해 주시길 바랍니다.");
+            return false;
+           }
+           else{
+                $("#f").submit();
+           }   
+        });
+        
+        $("#menu_cate>li").eq(0).click(function(){
+             $("#menu_cate>li:eq(0)>ol").slideDown();
+        });
+
+        $("#banner_outline").mouseover(function(){
+            $("#banner_outline > span").stop().fadeIn();
+        });
+
+        $("#banner_outline").mouseout(function(){
+            $("#banner_outline > span").stop().fadeOut();
+        });
+
+        });
+    </script>
+    <div class="event_top">
+        <!--이벤트 배너-->
+        <label class="top1" id="top1">
+            <ul class="top_banner">
+                <li><img src="./image/topbanner1.jpg"></li>
+                <li><img src="./image/topbanner2.jpg"></li>
+                <li><span class="close" id="close">X</span></li>
+            </ul>
+        </label>
+        <!--탑 메뉴 : 즐겨찾기~고객센터-->
+        <label class="top2">
+            <ul class="ul_left">
+                <li>즐겨찾기</li>
+                <li>입장신청▼</li>
+            </ul>
+            <ul class="ul_right">
+                <li onclick="location.href='./'">로그인</li>
+                <li>회원가입</li>
+                <li>고객센터</li>
+            </ul>
+        </label>
+    </div>
+</header>
+<!--로그 & 메뉴-->
+<nav class="nav_css">
+    <div class="menu_div">
+        <label class="menu_logo">
+            <img src="./image/logo.png">
+        </label>
+        <form id="f" method="GET" action="https://coupang.com/np/search">
+        <label class="menu_search">
+            <input type="text" name="q" id="search" placeholder="검색할 상품명을 입력해 주시길 바랍니다">
+            <input type="submit" value="상품검색">
+        </label>
+
+        <label class="menu_part">
+            <ul id="menu_cate">
+                <li>카테고리</li>
+                <li>로켓배송</li>
+                <li>로켓프레시</li>
+                <li>2022설날</li>
+                <li>로켓직구</li>
+                <li>골드박스</li>
+                <li>정기배송</li>
+                <li>이벤트/쿠폰</li>
+                <li>기획전</li>
+                <li>여행/티켓</li>
+            </ul>
+        </label>
+    </div>
+</nav>
+<!--배너-->
+<section class="banner_css" th:fragment="banner">
+    <div class="banner_outline" id="banner_outline">
+        <ul class="banner_view">
+        <li><img src="./banner/banner.png"></li>
+        <li><img src="./banner/banner.png"></li>
+        </ul>
+        <span class="leftcss"><img src="./banner/leftbtn.png"></span>
+        <span class="rightcss"><img src="./banner/rightbtn.png"></span>
+        <label class="disc">
+            <ul>
+                <li></li>
+                <li></li>
+                <li></li>
+                <li></li>
+            </ul>
+        </label>
+    </div>
+</section>
+<!--상품출력-->
+<article class="article_css" th:fragment="product">
+    <div class="product">
+        <p class="product_title">BEST PRODUCT</p>
+        <ul class="product_ul">
+            <li>
+                <div class="product_view">
+                    <span><img src="./product/bestproduct1.png"></span>
+                    <span>베트남 쌀국수 3종 세트</span>
+                    <span><font color="red">균일가</font> 5,500원</span>
+                </div>
+            </li>
+            <li>
+                <div class="product_view">
+                    <span><img src="./product/bestproduct2.png"></span>
+                    <span>순수 PURE 30EA 50% 세일</span>
+                    <span><font color="red">균일가</font> 12,000원</span>
+                </div>
+            </li>
+            <li>
+                <div class="product_view">
+                    <span><img src="./product/bestproduct3.png"></span>
+                    <span>정관장 활기력 20EA 1BOX</span>
+                    <span><font color="red">균일가</font> 38,000원</span>
+                    <label class="coupon"><img src="./product/coupon.png"></label>
+                </div>
+            </li>
+            <li>
+                <div class="product_view">
+                    <span><img src="./product/bestproduct4.png"></span>
+                    <span>일렉트로닉 무선 청소기 15% 할인</span>
+                    <span><font color="red">균일가</font> 370,000원</span>
+                    <label class="coupon"><img src="./product/coupon.png"></label>
+                </div>
+            </li>
+        </ul>
+        <p class="product_title">NEW PRODUCT</p>
+        <ol>
+            
+        </ol>
+        </div>
+</article>
+<!--카피라이터-->
+<footer class="footer_css" th:fragment="footer">
+    <div class="copyright">
+        <span class="cp1">
+            <ul>
+                <li>회사소개</li>
+                <li>인재채용</li>
+                <li>입점/제휴문의</li>
+                <li>공지사항</li>
+                <li>고객의소리</li>
+                <li>이용약관</li>
+                <li>개인정보처리방침</li>
+                <li>제휴마케팅</li>
+                <li>광고안내</li>
+                <li>신뢰관리센터</li>
+            </ul>
+        </span>
+        <span class="cp2">
+            <label>Copyright ⓒ Coupang Corp. 2024-2025 All Rights Reserved.</label>
+        </span>
+        </div>
+</footer>
+</body>
+</html>

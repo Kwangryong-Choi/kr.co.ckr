@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="kr.co.lee.mapper, kr.co.lee.mapper2">
+<select id="alldata" resultType="kr.co.ckrjjang.membership_dto">
+select * from MEMBERSHIP
+</select>
+
+<!-- 하나의 데이터만 출력 -->
+<select id="onedata" resultType="kr.co.ckrjjang.membership_dto">
+select * from MEMBERSHIP where MID = #{MID}
+</select>
+
+<insert id="save_member" parameterType="kr.co.ckrjjang.membership_dto">
+insert into from MEMBERSHIP 
+values (MNO.nextval, #{MID}, #{MNAME}, #{MCODE}, #{MNICK}, #{MPASS}, #{MEMAIL}, #{MHP}, #{MJOIN}, #{MDATE})
+</insert>
+</mapper>

@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html xmlns:th="https://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>thymeleaf 전체 구문 중급 언어 (SpringEL 표현식)</title>
+</head>
+<body>
+<!-- th:switch ~ th:case  :  switch ~ case 문을 사용하는 방식 -->
+<ul th:switch="${paymethod}">
+<li th:case="1">신용카드</li>
+<li th:case="2">가상계좌</li>
+<li th:case="3">무통장</li>
+</ul>
+<br><br>
+
+<!-- #numbers.sequence(시작값,종료값) : 단순 반복을 말함 -->
+<ul>
+<li th:each="no : ${#numbers.sequence(1,5)}">[[${no}]]</li>
+<li th:each="no : ${#numbers.sequence(1,5)}" th:text="${no}"></li>
+</ul>
+<p>칼라 선택</p>
+<div th:each="color, aaa : ${alldata}"> <!--  Controller 배열값을 each 설정 -->
+<span th:text="|일련번호 : 11|"></span>
+<span>데이터 총 개수 : [[${aaa.size}]]</span>	<!-- size : 데이터 총 개수 -->
+<span>데이터 카운터 : [[${aaa.count}]]</span>	<!-- count : 1부터 시작값 -->
+<span>데이터 홀, 짝수 : [[${aaa.even}]]</span>	<!-- odd : 홀수,   even : 짝수  =>  count값으로 짝수, 홀수 가름 -->
+<span>일련변호 : [[${aaa.index}]]</span>	<!-- 객체명.배열값 -->
+<span th:each="color : ${alldata}" th:text="${color}"></span><br> <!-- each값을 출력 -->
+</div>
+
+<!-- th:checked  =>  radio, checkbox에서 사용하는 속성 -->
+<p>약관동의</p>
+<input type="radio" value="Y" th:checked="${agree == 'Y'}">동의함
+<input type="radio" value="N" th:checked="${agree == 'N'}">동의 안함
+
+<p>회원등급</p>
+<select>
+	<option value="비회원" th:selected="${level == '비회원'}">비회원</option>
+	<option value="일반회원" th:selected="${level == '일반회원'}">일반회원</option>
+	<option value="실버회원" th:selected="${level == '실버회원'}">실버회원</option>
+	<option value="골드회원" th:selected="${level == '골드회원'}">골드회원</option>
+</select>
+
+
+<p>현재시간</p>
+<span th:text="${today}"></span><br>
+<!-- 
+#temporals : Controller에서 LocalDateTime 으로 보내야 함
+#dates : Controller에서 Date 로 보내야 함 
+ -->
+<span th:text="${#temporals.format(today, 'yyyy-MM-dd HH:mm:ss')}"></span><br>
+<span th:text="${#dates.format(today2, 'yyyy-MM-dd HH:mm:ss')}"></span><br>
+<!-- thymeleaf에서  =>  T(Type)  :  java class를 로드할 수 있도록 하는 역할,  Math 활용 가능 (ceil, floor) -->
+<span th:text="${T(java.lang.Math).round(10/3)}"></span><br>
+
+<!-- 해당 패키지에 있는 class를 로드하는 방식 -->
+<span th:text="${T(kr.co.lee.thymeleaf.thymeleaf_controller)}"></span>
+
+</body>
+</html>
